@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Budget Calculator</title>
+  <link rel="icon" href="https://cdn-icons-png.freepik.com/512/48/48556.png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Baskervville+SC&family=Concert+One&family=Lora:ital,wght@0,400..700;1,400..700&family=Play:wght@400;700&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+</head>
+
+<body onload="display()">
+  <style>
+    body {
+      background-image: url("./wallpaperflare.com_wallpaper.jpg");
+      background-repeat: no-repeat;
+      background-size: 120vw;
+    }
+
+    #welcome {
+      display: flex;
+      justify-content: space-evenly;
+    }
+
+    h1 {
+      font-family: "Concert One", sans-serif;
+      font-weight: 400;
+      font-size: 4vw;
+      margin: 0 200px;
+      text-shadow: 1px 1px 1px rgb(33, 26, 144);
+    }
+
+    #welcome h2 {
+      font-family: "Concert One", sans-serif;
+      font-weight: 400;
+      padding-top: 20px;
+      font-size: 2vw;
+      /* margin: 0 0px;   */
+      text-shadow: 1px 1px 1px rgb(33, 26, 144);
+    }
+
+    .col {
+      background-color: rgba(255, 255, 255, 0.887);
+      border-radius: 20px;
+    }
+
+    /* .row2 {
+  margin-left:-5px;
+  margin-right:-5px;
+} */
+
+    .row2::after {
+
+      clear: both;
+      display: table;
+    }
+
+    table {
+      border-radius: 20px;
+      background-color: rgba(255, 255, 255, 0.707);
+      /* border-collapse: collapse;
+  border-spacing: 0; */
+      width: 100%;
+
+    }
+
+    th,
+    td {
+      text-align: left;
+      padding: 5px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    .container1{
+      display: flex;
+      position: relative;
+      justify-content: center;
+    }
+    .butt{
+      height: 50px;
+      position: relative;
+      margin-top: 80px;
+      margin-left: 100px;
+    }
+  </style>
+  <!-- heading -->
+  <section id="sign">
+    <div style="background-color: rgba(255, 255, 255, 0.799)" class=" text-dark " id="welcome">
+    </div>
+    <div class="container container1 mt-4 mb-4   "
+      style="background-color: rgba(255, 255, 255, 0.799);border-radius: 40px;">
+      <div class="mt-5  ">
+        <h3 class="text-success" id="budget">Budget :</h3>
+        <h3 class="text-danger" id="totalexpense">Expense:</h3>
+        <h3 class="text-info" id="totalincome">Total Income:</h3>
+        
+       </div> 
+      
+        <canvas id="myChart" style="width:100%;max-width:450px; margin-left: 40px;"> </canvas>
+       
+        <button class="butt btn btn-lg  btn-danger btn rounded-pill   " style="width: 180px;" onclick="Reset()">reset</button>
+      </div>
+
+    </div>
+
+    <div class="container">
+      <div class="row gap-5">
+        <div class="col text-center border p-4">
+
+          <h4 class="text-success">Add Income</h4>
+          <hr>
+          <input type="text" class="form-control mb-4 mt-4" placeholder="enter income type" id="incometype">
+          <input type="number" class="form-control mb-4" placeholder="enter income" id="incomeamount">
+          <button class="btn w-100 btn  btn-success" onclick="addIncome()">Add income</button>
+
+        </div>
+        <div class="col text-center border p-4">
+
+          <h4 class="text-danger">Add Expense</h4>
+          <hr>
+          <input type="text" class="form-control mb-4 mt-4" placeholder="enter expense type" id="expensetype">
+          <input type="number" class="form-control mb-4" placeholder="enter expense" id="expenseamount">
+          <button class="w-100 btn  btn-danger" onclick="addExpense()">Add expense</button>
+
+        </div>
+      </div>
+    </div>
+
+
+    <!-- table -->
+
+
+
+    <div class="container">
+
+      <div class="row row2  gap-5 mt-2">
+        <div class="col">
+          <table class="text-success">
+            <thead>
+              <th>Type</th>
+              <th>Amount</th>
+              <th>Balance</th>
+              <th>Date&Time</th>
+              <thead>
+              <tbody id="incomebody">
+
+              </tbody>
+
+          </table>
+        </div>
+        <div class="col">
+          <table class="text-danger">
+            <thead>
+              <th>Type</th>
+              <th>Amount</th>
+              <th>Balance</th>
+              <th>Date&Time</th>
+              <thead>
+              <tbody id="expensebody">
+
+              </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <script>
+
+  </script>
+
+</body>
+<script src="./script.js"></script>
+
+</html>

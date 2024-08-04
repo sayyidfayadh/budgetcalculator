@@ -208,9 +208,9 @@ function displayboth(){
   budgetdisplay.innerHTML=`Budget  :₹${user.budget}` 
   expensedisplay=document.getElementById("totalexpense")
   //  console.log(user.expense);
-  expensedisplay.innerHTML=`Expense  :₹${user.expense}`
+  expensedisplay.innerHTML=`Expense:₹${user.expense}`
   incomedisplay=document.getElementById("totalincome")
-   incomedisplay.innerHTML=`Total income  :₹${user.income}`
+   incomedisplay.innerHTML=`Income  :₹${user.income}`
 }
 
 function Reset(){
